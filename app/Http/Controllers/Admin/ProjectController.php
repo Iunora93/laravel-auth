@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Str;
 
 
 class ProjectController extends Controller
@@ -41,7 +42,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $data = $request->validated();
+        $new_project = new Project();
+        $new_project->fill($data);
+        $new_project->slug = Str::slug($new_project->title, '-');
+        $new_project->save(); 
+        return redirect()->route('admin.projects.index')->with('message', "Il progetto $new_project->title è stato creato");
     }
 
     /**
@@ -64,7 +70,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -76,7 +82,11 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $old_title = $project->title;
+        $data = $request->validated();
+        $project->slug = Str::slug($project->title, '-');
+        $project->update($data); 
+        return redirect()->route('admin.projects.index')->with('message', "Il progetto $old_title è stato modificato");
     }
 
     /**

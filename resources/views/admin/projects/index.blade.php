@@ -17,7 +17,7 @@
                 <td>{{ $project->id }}</td>
                 <td>{{ $project->title }}</td>
                 <td>{{ $project->slug }}</td>
-                <td></td>
+                <td><a href="{{ route('admin.projects.show', $project) }}" class="btn btn-success">Dettaglio</a></td>
             </tr>
             @endforeach
         </tbody>

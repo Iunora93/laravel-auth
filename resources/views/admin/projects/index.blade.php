@@ -32,9 +32,14 @@
                 <td>{{ $project->slug }}</td>
                 <td><a href="{{ route('admin.projects.show', $project) }}" class="btn btn-success">Dettaglio</a></td>
                 <td><a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-warning">Modifica</a></td>
-                <td><a href="{{ route('admin.projects.destroy', $project) }}" class="btn btn-danger">Cancella</a></td>
-
-
+                <td>                  
+                  <form action="{{route('admin.projects.destroy', $project)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" >Cancella</button>
+                </form>
+                </td>
+                  
             </tr>
             @endforeach
         </tbody>

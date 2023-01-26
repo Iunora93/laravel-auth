@@ -84,7 +84,7 @@ class ProjectController extends Controller
     {
         $old_title = $project->title;
         $data = $request->validated();
-        $project->slug = Str::slug($project->title, '-');
+        $project->slug = Str::slug($data['title'], '-');
         $project->update($data); 
         return redirect()->route('admin.projects.index')->with('message', "Il progetto $old_title è stato modificato");
     }
@@ -97,6 +97,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $old_title = $project->title;
+        $project->delete();
+        return redirect()->route('admin.projects.index')->with('message', "Il progetto $old_title è stato eliminato");
     }
 }

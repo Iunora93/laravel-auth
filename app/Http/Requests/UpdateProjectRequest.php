@@ -32,7 +32,8 @@ class UpdateProjectRequest extends FormRequest
                 'string',
                 'max:150',
                 Rule::unique('projects')->ignore($this->project)
-            ]
+            ],
+            'cover_image' => 'nullable|image|max:2048'
         ];
     }
 }

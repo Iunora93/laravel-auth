@@ -14,7 +14,7 @@
   <div class="py-4">
     <h1>Modifica {{$project->title}}</h1>
     <div class="mt-4">
-        <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+        <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -24,6 +24,10 @@
             <div class="mb-3">
                 <label for="content" class="form-label">Contenuto</label>
                 <textarea class="form-control" id="content" name="content" rows="10" placeholder="Inserisci il contenuto">{{ old('content', $project->content) }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="cover_image" class="form-label">Modifica immagine</label>
+                <input type="file" class="form-control" id="cover_image" name="cover_image">
             </div>
             <button type="submit" class="btn btn-primary">Modifica</button>
         </form>
